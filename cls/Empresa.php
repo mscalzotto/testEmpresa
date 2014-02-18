@@ -9,8 +9,8 @@ class Empresa extends Disenador {
 	public $nombre;
 	public $empleado;
 
-	public function __construct(){
-		$this->db = new Database();
+	public function __construct(Database $db){
+		$this->db = $db;
 	}
 
 	public function __destruct() {
