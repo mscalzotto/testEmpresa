@@ -6,11 +6,11 @@ class Database {
 
     public function __construct($auto_connect = true) {
 
-        if(!defined('DB_DBNAME')) {
-            require_once(PATH_CFG.'connection.php');
+        if (!defined('DB_DBNAME')) {
+            require_once(PATH_CFG . 'connection.php');
         }
 
-        if($auto_connect){
+        if ($auto_connect){
             $this->connect();
         }
     }
@@ -44,7 +44,7 @@ class Database {
         }
         catch (PDOException $e) {
             /*if error code = HY000 means that fetchall() returned no result*/
-            if($e->getCode()!='HY000') {
+            if ($e->getCode() !='HY000') {
                 echo $e->getMessage();
             }
         }
