@@ -3,8 +3,11 @@ class Database {
 
     private $dbh;
     public $lastID;
+    // private $db;
 
+    // public function __construct(PDO $db)
     public function __construct($auto_connect = true) {
+	// $this->db = $db;
 
         if (!defined('DB_DBNAME')) {
             require_once(PATH_CFG . 'connection.php');
@@ -22,6 +25,10 @@ class Database {
 	private function connect() {
         try {
             $dsn = 'mysql:dbname=' . DB_DBNAME . ';host=' . DB_HOST;
+            
+            // Esta nueva instancia la realizas POR FUERA de esta clase
+            // nada mas que la instancia de pdo va dentro de la instancia de la clase
+            // $db = new Database(new PDO....etc);
             $this->dbh = new PDO($dsn, DB_USER, DB_PASS);
             $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
