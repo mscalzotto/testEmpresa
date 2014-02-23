@@ -1,6 +1,6 @@
 <?php
 
-namespace Persona
+//namespace Persona;
 
 class Disenador extends Programador {
 

@@ -1,13 +1,12 @@
 <?php
 class Database {
 
-    private $dbh;
+    //private $dbh;
     public $lastID;
-    // private $db;
+    private $db;
 
-    // public function __construct(PDO $db)
-    public function __construct($auto_connect = true) {
-	// $this->db = $db;
+    public function __construct(PDO $db) {
+        $this->db = $db;
 
         if (!defined('DB_DBNAME')) {
             require_once(PATH_CFG . 'connection.php');
