@@ -4,9 +4,6 @@
 
 class Empresa extends Disenador {
 	
-	private $db;
-	public $id;
-	public $nombre;
 	public $empleado;
 
 	public function __construct(Database $db){
@@ -19,33 +16,28 @@ class Empresa extends Disenador {
 
 	private function agregarEmpleadoEmpresa() {
 		$empleados = $this->db->query('SELECT empleados FROM empresa');
-
-		if($empleados == 0) {
-			$query = 'UPDATE  empresa SET empleados = 1 WHERE id = 1';
-			$this->db->query($query);
-		}
-		else {
-			$empleados++;
-			$query = 'UPDATE empresa SET empleados = $empleados WHERE id = 1';
-		}
+		$empleados = $empleados[0]['empleados'];
+		$empleados++;
+		$query = 'UPDATE empresa SET empleados = '. $empleados .' WHERE id = 1';
+		$this->db->query($query);
 	}
 
 	public function agregarEmpleado($nombre, $apellido, $edad, $empleado, $tipo = null, $lenguaje = null) {
 		//Si tipo es distinto de null entonces es un diseñador
 		if($tipo != null) {
-			$query = 'INSERT INTO programador(nombre,apellido,edad,empleado,tipo)
-					  VALUES($nombre,$apellido,$edad,$empleado,$tipo)';
+			$query = 'INSERT INTO disenador(nombre,apellido,edad,tipo)
+					  VALUES("'. $nombre .'","'. $apellido .'",'. $edad.',"'. $tipo .'")';
 		}
 		else {
 			//Sino, es un programador
-			$query = 'INSERT INTO programador(nombre,apellido,edad,empleado,lenguaje)
-					  VALUES($nombre,$apellido,$edad,$empleado,$lenguaje)';
+			$query = 'INSERT INTO programador(nombre,apellido,edad,lenguaje)
+					  VALUES("'. $nombre .'","'. $apellido .'",'. $edad.',"'. $lenguaje .'")';
 		}
 
-		///Sumo un empleado al campo empleados en la tabla empresa
+		//Sumo un empleado al campo empleados en la tabla empresa
 		$this->agregarEmpleadoEmpresa();
 
-		return $this->db_query($query);
+		return $this->db->query($query);
 	}
 
 	public function obtenerListadoEmpleados() {

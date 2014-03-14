@@ -2,7 +2,7 @@
 
 //namespace Persona;
 
-class Programador extends Persona {
+class Programador extends Empleado {
 	
 	public $lenguaje;
 }

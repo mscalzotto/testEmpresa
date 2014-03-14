@@ -1,20 +1,17 @@
 <?php
 class Database {
+    
+    private $pdo;
 
-    //private $dbh;
-    public $lastID;
-    private $db;
-
-    public function __construct(PDO $db) {
-        $this->db = $db;
+    public function __construct(PDO $pdo) {
+        $this->pdo = $pdo;
 
         if (!defined('DB_DBNAME')) {
             require_once(PATH_CFG . 'connection.php');
         }
 
-        if ($auto_connect){
-            $this->connect();
-        }
+        $this->connect();
+      
     }
 
     /**
@@ -28,8 +25,8 @@ class Database {
             // Esta nueva instancia la realizas POR FUERA de esta clase
             // nada mas que la instancia de pdo va dentro de la instancia de la clase
             // $db = new Database(new PDO....etc);
-            $this->dbh = new PDO($dsn, DB_USER, DB_PASS);
-            $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //$this->dbh = new PDO($dsn, DB_USER, DB_PASS);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch(PDOException $e) {
             echo  $e->getMessage();
@@ -45,7 +42,7 @@ class Database {
     public function query($sql_query) {
         
         try {
-            $smh = $this->dbh->query($sql_query);
+            $smh = $this->pdo->query($sql_query);
             return $smh->fetchAll(PDO::FETCH_ASSOC);
         }
         catch (PDOException $e) {

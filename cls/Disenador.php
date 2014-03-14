@@ -2,7 +2,7 @@
 
 //namespace Persona;
 
-class Disenador extends Programador {
+class Disenador extends Empleado {
 
 	public $tipoDeDisenador;
 }

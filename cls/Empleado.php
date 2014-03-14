@@ -2,7 +2,7 @@
 
 //namespace Persona;
 
-class Persona {
+class Empleado {
 
 	public $id;
 	public $edad;
