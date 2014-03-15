@@ -18,7 +18,6 @@ function showProperSelect() {
 
 function updateInputHiddenValues() {
 	$('select').change(function() {
-		//console.log($(this)[0].name);
 		switch ($(this)[0].name) {
 			case 'agregarLenguajeSelect' :
 				$('input[name="agregarLenguajeHidden"]').attr('value', $(this)[0].value);
