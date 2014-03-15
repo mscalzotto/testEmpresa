@@ -13,7 +13,7 @@ class HtmlHeader {
 	 * formateado
 	 *
 	 */
-	public function htmlHeader(array $navElements) {
+	public static function renderNav(array $navElements) {
 		
 		$header  =  '<nav>';
 		$header .=    '<ul>';
