@@ -20,7 +20,7 @@
 					'Hotmail' => 'http://www.hotmail.com',
 			    );
 
-				$header = HtmlHeader::renderNav($navElements);
+				$header = HtmlElements::renderNav($navElements);
 		     ?>
 		</header>
 

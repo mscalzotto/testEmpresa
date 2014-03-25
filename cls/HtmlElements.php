@@ -1,9 +1,21 @@
 <?php
 
-class HtmlHeader {
+require('Database.php');
+
+class HtmlElements {
+
+	public function __construct(Database $db = null){
+		if($db != null) {
+			$this->db = $db;
+		}
+	}
+
+	public function __destruct() {
+		$this->db = null;
+	}
 
 	/**
-	 * public function htmlHeader()
+	 * public function renderNav()
 	 *
 	 * @param array $navElements
 	 * @return html $header 
@@ -24,5 +36,18 @@ class HtmlHeader {
 		$header .=  '</nav>';
 		
 		return print $header;
+	}
+
+	public static function renderAreaDesempeno($db, $class = 'defaultSelectClass', $name = 'defaultSelectName') {
+		$select  = '<select class="'. $class .'" name="' . $name . '">';
+		$select .=	 '<option value="default">-- Seleccione --</option>';
+		
+		$query = "SELECT tipo_empleado FROM tipo_empleado";
+
+		$selectValues = $db->query($query);
+
+		
+
+		//return $select;
 	}
 }
