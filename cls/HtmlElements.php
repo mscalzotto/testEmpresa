@@ -1,31 +1,26 @@
 <?php
 
-require('Database.php');
-
 class HtmlElements {
-
-	public function __construct(Database $db = null){
-		if($db != null) {
-			$this->db = $db;
-		}
+	
+	public static function openForm($id, $action, $method = 'post') {
+		return print '<form id="'. $id .'" action="'. $action .'" method="'. $method .'">';
 	}
 
-	public function __destruct() {
-		$this->db = null;
+	public static function closeForm() {
+		
+		return print '</form>';
 	}
 
-	/**
-	 * public function renderNav()
-	 *
-	 * @param array $navElements
-	 * @return html $header 
-	 *
-	 * Recibe un array con los elementos necesarios
-	 * a mostrar en el header y devuelve codigo html
-	 * formateado
-	 *
-	 */
-	public static function renderNav(array $navElements) {
+	public static function input($class = 'defaultInputClass', $type, $name = null, $placeholder = null, $value = null) {
+		!is_null($class)? $class = 'class="'. $class . '"' : null;
+		!is_null($placeholder)? $placeholder = 'placeholder="'. $placeholder .'"' : null;
+		!is_null($value)? $value = 'value="'. $value .'"' : null;
+		!is_null($name)? $name = 'name="'. $name .'"' : null;
+
+		return print '<input type="'. $type .'" '. $name .' '. $placeholder .' '. $value .' '. $class .' />';
+	}
+
+	public static function nav(array $navElements) {
 		
 		$header  =  '<nav>';
 		$header .=    '<ul>';
@@ -38,16 +33,26 @@ class HtmlElements {
 		return print $header;
 	}
 
-	public static function renderAreaDesempeno($db, $class = 'defaultSelectClass', $name = 'defaultSelectName') {
+	public static function select($db, $type, $class = 'defaultSelectClass', $name = 'defaultSelectName') {
+		$availableTypes = array('tipo_empleado', 'tipo_disenador', 'tipo_programador');
+
+		if (!in_array($type, $availableTypes)) {
+			die('Parametro "type" inválido.');
+		}
+		
 		$select  = '<select class="'. $class .'" name="' . $name . '">';
 		$select .=	 '<option value="default">-- Seleccione --</option>';
 		
-		$query = "SELECT tipo_empleado FROM tipo_empleado";
-
+		$query = "SELECT ". $type ." FROM " . $type ."";
+		
 		$selectValues = $db->query($query);
 
-		
+		foreach ($selectValues as $field => $optionValue) {
+			$select .=	 '<option value="'. $optionValue[$type] .'">'. $optionValue[$type] .'</option>';
+		}
 
-		//return $select;
+		$select .= '</select>';
+
+		return print $select;
 	}
 }

@@ -5,11 +5,11 @@ $(document).ready(function() {
 
 function showProperSelect() {
 	$(document).change(function() {
-		if ($('select.agregarArea').val() === "programador") {
+		if ($('select.agregarArea').val() === "Programador") {
 				$('select.agregarTipoDisenador').hide();
 				$('select.agregarLenguaje').show();
 		}
-		else if ($('select.agregarArea').val() === "disenador") {
+		else if ($('select.agregarArea').val() === "Disenador") {
 			$('select.agregarLenguaje').hide();
 			$('select.agregarTipoDisenador').show();
 		}

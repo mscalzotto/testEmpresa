@@ -1,7 +1,5 @@
 <?php
 
-//namespace Persona;
-
 class Empresa extends Disenador {
 	
 	public $empleado;
@@ -23,19 +21,8 @@ class Empresa extends Disenador {
 	}
 
 	public function agregarEmpleado($nombre, $apellido, $edad, $empleado, $tipo = null, $lenguaje = null) {
-		//Si tipo es distinto de null entonces es un diseñador
-		if($tipo != null) {
-			$query = 'INSERT INTO disenador(nombre,apellido,edad,tipo)
-					  VALUES("'. $nombre .'","'. $apellido .'",'. $edad.',"'. $tipo .'")';
-		}
-		else {
-			//Sino, es un programador
-			$query = 'INSERT INTO programador(nombre,apellido,edad,lenguaje)
-					  VALUES("'. $nombre .'","'. $apellido .'",'. $edad.',"'. $lenguaje .'")';
-		}
-
-		//Sumo un empleado al campo empleados en la tabla empresa
-		$this->agregarEmpleadoEmpresa();
+		
+		
 
 		return $this->db->query($query);
 	}

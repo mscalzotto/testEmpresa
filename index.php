@@ -1,10 +1,14 @@
 <?php
 	include 'cfg/connection.php';
 	include 'cfg/core.php';
+
+	$pdo = new PDO('mysql:dbname='. DB_DBNAME .';host='. DB_HOST, DB_USER, DB_PASS);
+	$db = new Database($pdo);
+
 ?>
 <!DOCTYPE html>
 	<head>
-		<meta charset="utf-8">
+		<meta charset="ISO-8859-1">
 		<script type="text/javascript" src="js/jquery-latest/jquery.latest.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
@@ -20,37 +24,22 @@
 					'Hotmail' => 'http://www.hotmail.com',
 			    );
 
-				$header = HtmlElements::renderNav($navElements);
+				$header = HtmlElements::nav($navElements);
 		     ?>
 		</header>
 
-		<form id="agregaEmpleado" action="empleados.php" method="post">
+		<?php HtmlElements::openForm('agregaEmpleado', 'empleados.php'); ?>
 			<fieldset>
-				<input class="agregarNombre" type="text" name="agregarNombre" placeholder="Nombre" />
-				<input class="agregarApellido" type="text" name="agregarApellido" placeholder="Apellido" />
-				<input class="agregarEdad" type="text" name="agregarEdad" placeholder="Edad" />
-				<select class="agregarArea" name="agregarAreaSelect">
-                  <option value="default">-- Seleccione área de desempeño --</option>
-                  <option value="programador">Programador</option>
-                  <option value="disenador">Diseñador</option>
-                </select>
-                <select class="agregarTipoDisenador" name="agregarTipoDisenadorSelect">
-                  <option value="default">-- Seleccione tipo de diseñador --</option>
-                  <option value="grafico">Gráfico</option>
-                  <option value="web">Web</option>
-                </select>
-                <select class="agregarLenguaje" name="agregarLenguajeSelect">
-                  <option value="default">-- Seleccione lenguaje --</option>
-                  <option value="php">PHP</option>
-                  <option value="net">.NET</option>
-                  <option value="phyton">Phyton</option>
-                </select>
-                <input type="hidden" name="agregarAreaHidden" value="">
-                <input type="hidden" name="agregarTipoDisenadorHidden" value="">
-                <input type="hidden" name="agregarLenguajeHidden" value="">
-                <input type="submit" value="Enviar" />
+				<?php HtmlElements::input('agregarNombre', 'text', 'agregarNombre', 'Nombre'); ?>
+				<?php HtmlElements::input('agregarApellido', 'text', 'agregarApellido', 'Apellido'); ?>
+				<?php HtmlElements::input('agregarEdad', 'text', 'agregarEdad', 'Edad'); ?>
+				
+				<?php HtmlElements::select($db, 'tipo_empleado', 'agregarArea', 'agregarAreaSelect')?>
+				<?php HtmlElements::select($db, 'tipo_disenador', 'agregarTipoDisenador', 'agregarTipoDisenadorSelect')?>
+				<?php HtmlElements::select($db, 'tipo_programador', 'agregarLenguaje', 'agregarLenguajeSelect')?>
+				<?php HtmlElements::input('enviar', 'submit', null, null, 'Enviar');?>
 			</fieldset>
-		</form>
+		<?php HtmlElements::closeForm(); ?>
 	</body>
 
 </html>
