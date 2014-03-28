@@ -12,7 +12,6 @@ class Database {
         }
 
         $this->connect();
-      
     }
 
     /**
@@ -40,10 +39,10 @@ class Database {
      * @return Array
      * @param string $sql_query SQL query
      */
-    public function query($sql_query) {
+    public function query($sqlQuery) {
         
         try {
-            $smh = $this->pdo->query($sql_query);
+            $smh = $this->pdo->query($sqlQuery);
             return $smh->fetchAll(PDO::FETCH_ASSOC);
         }
         catch (PDOException $e) {

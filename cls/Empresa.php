@@ -1,6 +1,6 @@
 <?php
 
-class Empresa extends Disenador {
+class Empresa {
 	
 	public $empleado;
 
@@ -12,19 +12,11 @@ class Empresa extends Disenador {
 		$this->db = null;
 	}
 
-	private function agregarEmpleadoEmpresa() {
-		$empleados = $this->db->query('SELECT empleados FROM empresa');
-		$empleados = $empleados[0]['empleados'];
-		$empleados++;
-		$query = 'UPDATE empresa SET empleados = '. $empleados .' WHERE id = 1';
-		$this->db->query($query);
-	}
-
-	public function agregarEmpleado($nombre, $apellido, $edad, $empleado, $tipo = null, $lenguaje = null) {
+	public function agregarEmpleado($array) {
 		
-		
+		var_dump($post);
 
-		return $this->db->query($query);
+		//return $this->db->query($query);
 	}
 
 	public function obtenerListadoEmpleados() {

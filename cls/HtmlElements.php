@@ -7,7 +7,6 @@ class HtmlElements {
 	}
 
 	public static function closeForm() {
-		
 		return print '</form>';
 	}
 
@@ -21,7 +20,6 @@ class HtmlElements {
 	}
 
 	public static function nav(array $navElements) {
-		
 		$header  =  '<nav>';
 		$header .=    '<ul>';
 		                foreach ($navElements as $navName => $navLink) {
@@ -33,11 +31,12 @@ class HtmlElements {
 		return print $header;
 	}
 
+	//Hay que mejorar el hecho de que el tipo de select se determine de la forma que se determina actualmente
 	public static function select($db, $type, $class = 'defaultSelectClass', $name = 'defaultSelectName') {
 		$availableTypes = array('tipo_empleado', 'tipo_disenador', 'tipo_programador');
 
 		if (!in_array($type, $availableTypes)) {
-			die('Parametro "type" inválido.');
+			throw new InvalidArgumentException('Parametro "type" inválido.');
 		}
 		
 		$select  = '<select class="'. $class .'" name="' . $name . '">';
