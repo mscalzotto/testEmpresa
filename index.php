@@ -40,6 +40,7 @@
 				<?php HtmlElements::input('enviar', 'submit', null, null, 'Enviar');?>
 			</fieldset>
 		<?php HtmlElements::closeForm(); ?>
+
 	</body>
 
 </html>

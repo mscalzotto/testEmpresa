@@ -39,7 +39,7 @@ class Database {
      * @return Array
      * @param string $sql_query SQL query
      */
-    public function query($sqlQuery) {
+    private function query($sqlQuery) {
         
         try {
             $smh = $this->pdo->query($sqlQuery);
@@ -52,4 +52,42 @@ class Database {
             }
         }
     }
-}
+
+    public function find() {
+
+    }
+
+    public function create($table, array $values) {
+        $fields = $this->getTableFields($table);
+        $fields = implode(',', $fields);
+        
+        $lap = 0;
+        $insertValues = "";
+        foreach ($values as $value) {
+            $count = count($values);
+            if($lap == $count - 1) {
+                $insertValues .= '"' . $value . '"';
+            }
+            else {
+                $insertValues .= '"' . $value . '",';
+            }
+            $lap++;
+        }
+
+        $query = "INSERT INTO " . $table . " (" . $fields . ") VALUES(null," . $insertValues . ")";
+        
+        $this->query($query);
+    }
+
+    private function getTableFields($table) {
+        $query = 'SELECT column_name FROM information_schema.columns WHERE table_name = "' . $table . '"';
+        $unprocessedFields = $this->query($query);
+
+        foreach ($unprocessedFields as $fieldName) {
+            $fields[] = $fieldName['column_name'];
+        }
+
+        return $fields;
+    }
+ 
+ }

@@ -12,15 +12,12 @@ class Empresa {
 		$this->db = null;
 	}
 
-	public function agregarEmpleado($array) {
-		
-		var_dump($post);
-
-		//return $this->db->query($query);
+	public function agregarEmpleado($table, array $values) {
+		$this->db->create($table, $values);
 	}
 
-	public function obtenerListadoEmpleados() {
-
+	public function obtenerListadoEmpleados($tablaEmpleados) {
+		
 	}
 
 	public function obtenerEmpleadoPorId($id) {

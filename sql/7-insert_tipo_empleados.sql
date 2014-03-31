@@ -1,1 +1,0 @@
-INSERT INTO `empresa`.`tipo_empleado` (`id_tipo`, `tipo_empleado`) VALUES (NULL, 'Programador'), (NULL, 'Diseñador');
