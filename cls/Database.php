@@ -53,13 +53,25 @@ class Database {
         }
     }
 
-    public function find() {
+    public function find($table) {
 
     }
 
+
+    /**
+     * public funcion create()
+     * 
+     * @param $table
+     *        database table name
+     * @param array $values
+     *        values about to be inserted on indicated database table
+     * 
+     * Builds the proper MySQL query with the given parameters 
+     * and executes it over the given database table
+     */
     public function create($table, array $values) {
-        $fields = $this->getTableFields($table);
-        $fields = implode(',', $fields);
+        $columns = $this->getTableColumns($table);
+        $columns = implode(',', $columns);
         
         $lap = 0;
         $insertValues = "";
@@ -74,20 +86,29 @@ class Database {
             $lap++;
         }
 
-        $query = "INSERT INTO " . $table . " (" . $fields . ") VALUES(null," . $insertValues . ")";
+        $query = "INSERT INTO " . $table . " (" . $columns . ") VALUES(null," . $insertValues . ")";
         
-        $this->query($query);
+        return $this->query($query);
     }
 
-    private function getTableFields($table) {
-        $query = 'SELECT column_name FROM information_schema.columns WHERE table_name = "' . $table . '"';
-        $unprocessedFields = $this->query($query);
 
-        foreach ($unprocessedFields as $fieldName) {
-            $fields[] = $fieldName['column_name'];
+    /** 
+     * private function getTableColumns()
+     * 
+     * @param $table
+     *        database table name
+     * 
+     * Retrieves the columns of the given database table
+     */
+    private function getTableColumns($table) {
+        $query = 'SELECT column_name FROM information_schema.columns WHERE table_name = "' . $table . '"';
+        $unprocessedColumns = $this->query($query);
+
+        foreach ($unprocessedColumns as $columnName) {
+            $columns[] = $columnName['column_name'];
         }
 
-        return $fields;
+        return $columns;
     }
  
  }

@@ -11,17 +11,9 @@ if (isset($_POST)) {
 	}
 }
 
-
 $pdo = new PDO('mysql:dbname='. DB_DBNAME .';host='. DB_HOST, DB_USER, DB_PASS);
 $db = new Database($pdo);
 
 $empresa = new Empresa($db);
 
-$values = array(
-	'nombre' => 'Maximiliano',
-	'apellido' => 'Scalzotto',
-	'edad' => '34',
-	'id_puesto' => '1'
-	);
-
-$empresa->agregarEmpleado('empleados', $values);
+$empresa->agregarEmpleado('empleados', $post);
