@@ -41,15 +41,6 @@ class HtmlElements {
 		
 		$select  = '<select class="'. $class .'" name="' . $name . '">';
 		$select .=	 '<option value="default">-- Seleccione --</option>';
-		
-		$query = "SELECT ". $type ." FROM " . $type ."";
-		
-		$selectValues = $db->query($query);
-
-		foreach ($selectValues as $field => $optionValue) {
-			$select .=	 '<option value="'. $optionValue[$type] .'">'. $optionValue[$type] .'</option>';
-		}
-
 		$select .= '</select>';
 
 		return print $select;

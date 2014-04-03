@@ -6,13 +6,25 @@ class Ajax extends Database {
 		$this->db = $db;
 	}
 
-	public function getDBValues() {
-		$query = "SELECT * FROM  categoria INNER JOIN puesto ON categoria.id_puesto =  puesto.id_puesto";
+	private function getDBValues() {
+		$query = "SELECT * FROM  categoria INNER JOIN puesto ON categoria.id_puesto = puesto.id_puesto";
 		$dbValues = $this->db->query($query);
 
-		foreach($dbValues as $dbValue) {
-			print_r($dbValue) . print '<br>';
-		}
+		return $dbValues;
+	}
+
+	public function getJson() {
+		$dbValues = $this->getDBValues();
+
+		$json = array();
+		foreach ($dbValues as $key => $dbValue) {
+			foreach ($dbValue as $jsonKey => $jsonValue) {
+				$json[$dbValue['puesto']]['categoria'][$key] = $dbValue['categoria'];
+			}
+		}	
+		$json = json_encode($json);
+
+		return print $json;
 	}
 
 }

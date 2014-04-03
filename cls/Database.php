@@ -21,11 +21,6 @@ class Database {
 	private function connect() {
         try {
             $dsn = 'mysql:dbname=' . DB_DBNAME . ';host=' . DB_HOST;
-            
-            // Esta nueva instancia la realizas POR FUERA de esta clase
-            // nada mas que la instancia de pdo va dentro de la instancia de la clase
-            // $db = new Database(new PDO....etc);
-            //$this->dbh = new PDO($dsn, DB_USER, DB_PASS);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch(PDOException $e) {
@@ -59,7 +54,7 @@ class Database {
 
 
     /**
-     * public funcion create()
+     * public function create()
      * 
      * @param $table
      *        database table name
