@@ -2,7 +2,7 @@
 
 class Ajax extends Database {
 	
-	public function __construct(Database $db){
+	public function __construct(){
 		parent::__construct(new PDO('mysql:dbname='. DB_DBNAME .';host='. DB_HOST, DB_USER, DB_PASS));
 	}
 
