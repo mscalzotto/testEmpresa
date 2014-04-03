@@ -3,12 +3,12 @@
 class Ajax extends Database {
 	
 	public function __construct(Database $db){
-		$this->db = $db;
+		parent::__construct(new PDO('mysql:dbname='. DB_DBNAME .';host='. DB_HOST, DB_USER, DB_PASS));
 	}
 
 	private function getDBValues() {
 		$query = "SELECT * FROM  categoria INNER JOIN puesto ON categoria.id_puesto = puesto.id_puesto";
-		$dbValues = $this->db->query($query);
+		$dbValues = parent::query($query);
 
 		return $dbValues;
 	}
