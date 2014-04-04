@@ -1,7 +1,7 @@
 <?php
 
 class HtmlElements {
-	
+
 	public static function openForm($id, $action, $method = 'post') {
 		return print '<form id="'. $id .'" action="'. $action .'" method="'. $method .'">';
 	}
@@ -27,20 +27,52 @@ class HtmlElements {
 	                    }
 		$header .=    '</ul>';
 		$header .=  '</nav>';
-		
+
 		return print $header;
 	}
 
-	//Hay que mejorar el hecho de que el tipo de select se determine de la forma que se determina actualmente
 	public static function select($db, $type, $class = 'defaultSelectClass', $name = 'defaultSelectName') {
-		$availableTypes = array('tipo_empleado', 'tipo_disenador', 'tipo_programador');
+		//Check if the entered type is valid
+		$typesQuery = "SELECT * FROM puesto"; 
+		$dbTypes = $db->query($typesQuery);
 
-		if (!in_array($type, $availableTypes)) {
+		foreach ($dbTypes as $dbType) {
+			$types[] = $dbType['puesto'];
+		}
+
+		//If type is "empleado" build employee_type select and stop excecution
+		if ($type === "empleado") {
+			$select  = '<select class="'. $class .'" name="' . $name . '">';
+			$select .=	 '<option value="default">-- Seleccione ' . $type . '--</option>';
+			
+			foreach ($types as $type) {
+				$select .=	 '<option value="'. $type .'">'. ucfirst($type) .'</option>';
+			}
+			
+			$select .= '</select>';
+
+			return print $select;
+		}
+
+		//If $type is not employee and it isn't valid, throw an exception
+		if (!in_array($type, $types)) {
 			throw new InvalidArgumentException('Parametro "type" inválido.');
 		}
-		
+
+		//Fill the select element according $type value
+		$idQuery = 'SELECT id_puesto FROM puesto WHERE puesto = "' . $type . '"';
+		$idPuesto = $db->query($idQuery);
+
+		$categoriesQuery = 'SELECT categoria FROM categoria WHERE id_puesto = "' . $idPuesto[0]['id_puesto'] . '"';
+		$categories = $db->query($categoriesQuery);
+
 		$select  = '<select class="'. $class .'" name="' . $name . '">';
-		$select .=	 '<option value="default">-- Seleccione --</option>';
+		$select .=	 '<option value="default">-- Seleccione ' . $type . '--</option>';
+
+		foreach ($categories as $category) {
+			$select .=	 '<option value="'. $category['categoria'] .'">'. ucfirst($category['categoria']) .'</option>';
+		}
+
 		$select .= '</select>';
 
 		return print $select;

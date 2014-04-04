@@ -34,9 +34,11 @@
 				<?php HtmlElements::input('agregarApellido', 'text', 'agregarApellido', 'Apellido'); ?>
 				<?php HtmlElements::input('agregarEdad', 'text', 'agregarEdad', 'Edad'); ?>
 				
-				<?php HtmlElements::select($db, 'tipo_empleado', 'agregarArea', 'agregarAreaSelect')?>
-				<?php HtmlElements::select($db, 'tipo_disenador', 'agregarTipoDisenador', 'agregarTipoDisenadorSelect')?>
-				<?php HtmlElements::select($db, 'tipo_programador', 'agregarLenguaje', 'agregarLenguajeSelect')?>
+				<?php HtmlElements::select($db, 'empleado', 'agregarArea', 'agregarAreaSelect')?>
+				<?php HtmlElements::select($db, 'disenador', 'agregarTipoDisenador', 'agregarTipoDisenadorSelect')?>
+				<?php HtmlElements::select($db, 'programador', 'agregarLenguaje', 'agregarLenguajeSelect')?>
+				<?php HtmlElements::select($db, 'musico', 'agregarLenguaje', 'agregarLenguajeSelect')?>
+				<?php HtmlElements::select($db, 'maquetador', 'agregarLenguaje', 'agregarLenguajeSelect')?>
 				<?php HtmlElements::input('enviar', 'submit', null, null, 'Enviar');?>
 			</fieldset>
 		<?php HtmlElements::closeForm(); ?>

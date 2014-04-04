@@ -34,8 +34,8 @@ class Database {
      * @return Array
      * @param string $sql_query SQL query
      */
-    protected function query($sqlQuery) {
-        
+    public function query($sqlQuery) {
+       
         try {
             $smh = $this->pdo->query($sqlQuery);
             return $smh->fetchAll(PDO::FETCH_ASSOC);

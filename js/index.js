@@ -1,23 +1,32 @@
 $(document).ready(function() {
-	getJsonData();
+	showProperSelect();
+	updateInputHiddenValues();
 });
 
-function getJsonData(){
-	$.ajax({
-	    type: "POST",
-	    async: false,
-	    url: document.location.href + "ajax.php",
-	    dataType: 'json',
-	    error: function(){
-	        alert('Error loading ' + document.location.href + "ajax.php");
-	    },
-	    success: function(data){
-	    	fillSelectElements(data);
-	    } 
+function showProperSelect() {
+	$(document).change(function() {
+		if ($('select.agregarArea').val() === "programador") {
+				$('select.agregarTipoDisenador').hide();
+				$('select.agregarLenguaje').show();
+		}
+		else if ($('select.agregarArea').val() === "disenador") {
+			$('select.agregarLenguaje').hide();
+			$('select.agregarTipoDisenador').show();
+		}
 	});
 }
 
-function fillSelectElements(json) {
-	console.log(json.disenador.categoria);
+function updateInputHiddenValues() {
+	$('select').change(function() {
+		switch ($(this)[0].name) {
+			case 'agregarLenguajeSelect' :
+				$('input[name="agregarLenguajeHidden"]').attr('value', $(this)[0].value);
+				$('input[name="agregarTipoDisenadorHidden"]').attr('value', null);
+				break;
+			case 'agregarTipoDisenadorSelect' :
+				$('input[name="agregarTipoDisenadorHidden"]').attr('value', $(this)[0].value);
+				$('input[name="agregarLenguajeHidden"]').attr('value', null);
+				break;
+		}
+	});
 }
-
