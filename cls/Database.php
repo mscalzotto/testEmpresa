@@ -33,12 +33,18 @@ class Database {
      *
      * @return Array
      * @param string $sql_query SQL query
+     * @param const $fetchMode PDO fetch mode
+     *
+     * @return array Result fetched as indicated by $fetchmode
      */
-    public function query($sqlQuery) {
+    public function query($sqlQuery, $fetchMode = PDO::FETCH_ASSOC) {
        
+        //Tambien deberia recibir las claves como array y reemplazarlas en el prepare
         try {
-            $smh = $this->pdo->query($sqlQuery);
-            return $smh->fetchAll(PDO::FETCH_ASSOC);
+            $prep = $this->pdo->prepare($sqlQuery);
+            $smh = $this->pdo->query($prep->queryString);
+            
+            return $smh->fetchAll($fetchMode);
         }
         catch (PDOException $e) {
             /*if error code = HY000 means that fetchall() returned no result*/
@@ -67,7 +73,7 @@ class Database {
     public function create($table, array $values) {
         $columns = $this->getTableColumns($table);
         $columns = implode(',', $columns);
-        
+
         $lap = 0;
         $insertValues = "";
         foreach ($values as $value) {
@@ -104,6 +110,17 @@ class Database {
         }
 
         return $columns;
+    }
+
+    public function retrieveEmployeeIds() {
+        $query = 'SELECT id_puesto FROM puesto';
+        $ids = $this->query($query);
+
+        foreach ($ids as $idPuesto) {
+            $id[] = $idPuesto['id_puesto'];
+        }
+
+        var_dump($id);
     }
  
  }

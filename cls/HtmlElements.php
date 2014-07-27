@@ -34,7 +34,7 @@ class HtmlElements {
 	public static function select($db, $type, $class = 'defaultSelectClass', $name = 'defaultSelectName') {
 		//Check if the entered type is valid
 		$typesQuery = "SELECT * FROM puesto"; 
-		$dbTypes = $db->query($typesQuery);
+		$dbTypes = $db->query($typesQuery, PDO::FETCH_ASSOC);
 
 		foreach ($dbTypes as $dbType) {
 			$types[] = $dbType['puesto'];

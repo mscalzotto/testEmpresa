@@ -12,7 +12,11 @@ class Empresa {
 		$this->db = null;
 	}
 
-	public function agregarEmpleado($table, array $values) {
+	public function agregarEmpleado($table, $values) {
+		if ($values == null) {
+			throw new InvalidArgumentException('No hay valores para insertar en la base de datos.');
+		}
+
 		$this->db->create($table, $values);
 	}
 
@@ -26,5 +30,15 @@ class Empresa {
 
 	public function obtenerPromedioEdadEmpleados($idEmpleado) {
 		
+	}
+
+	public function formatPostValues($postData) {
+		$post = null;
+		foreach ($postData as $postKey => $postValue) {
+			if (!($postValue == '' || $postValue == 'default')) {
+				$post[$postKey] = $postValue;
+			}
+		}
+		return $post;
 	}
 }
