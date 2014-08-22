@@ -8,6 +8,8 @@ $db = new Database($pdo);
 
 $empresa = new Empresa($db);
 
-isset($_POST)? $post = $empresa->formatPostValues($_POST) : null;
+$post = isset($_POST)? $empresa->formatPostValues($_POST) : null;
 
-$empresa->agregarEmpleado('empleados', $post);
+if (!is_null($post)) {
+	$empresa->agregarEmpleado('empleados', $post);
+}

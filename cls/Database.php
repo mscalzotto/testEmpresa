@@ -86,6 +86,7 @@ class Database {
             }
             $lap++;
         }
+        var_dump($insertValues); die;
 
         $query = "INSERT INTO " . $table . " (" . $columns . ") VALUES(null," . $insertValues . ")";
         

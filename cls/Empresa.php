@@ -4,7 +4,7 @@ class Empresa {
 	
 	public $empleado;
 
-	public function __construct(Database $db){
+	public function __construct(Database $db) {
 		$this->db = $db;
 	}
 
@@ -39,6 +39,7 @@ class Empresa {
 				$post[$postKey] = $postValue;
 			}
 		}
+
 		return $post;
 	}
 }

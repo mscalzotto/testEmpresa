@@ -1,0 +1,1 @@
+INSERT INTO `empresa`.`puesto` (`id_puesto`, `puesto`) VALUES ('1', 'Programador'), ('2', 'Disenador');
