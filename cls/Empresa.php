@@ -16,8 +16,13 @@ class Empresa {
 		if ($values == null) {
 			throw new InvalidArgumentException('No hay valores para insertar en la base de datos.');
 		}
-
-		$this->db->create($table, $values);
+		
+		try {
+			$this->db->create($table, $values);
+		}
+		catch (Exception $e) {
+			echo "Excepcion controlada: " . $e->getMessage();
+		}
 	}
 
 	public function obtenerListadoEmpleados($tablaEmpleados) {
